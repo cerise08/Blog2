@@ -1,73 +1,242 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
   <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Articles — David (Tellement Vrai)</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <style>
-        .navbar-custom {
-            background-color: #8c91d2 !important;
-        }
+      :root {
+        --violet: #8c91d2;
+        --highlight: #edd9b5;
+      }
 
-        .navbar-custom .nav-link,
-        .navbar-custom .navbar-brand {
-            color: #fff;
-        }
+      /* === FOND GRADIENT + TEXTURE === */
+      body {
+        background: linear-gradient(135deg, #f6f7fb 0%, #e5e0fa 40%, #f4d5f7 100%);
+        background-attachment: fixed;
+        font-family: 'Segoe UI', system-ui, sans-serif;
+        color: #222;
+        position: relative;
+        min-height: 100vh;
+      }
 
-        .navbar-custom .nav-link:hover {
-            color: #000;
-        }
+      body::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(rgba(255,255,255,0.25) 1px, transparent 1px);
+        background-size: 40px 40px;
+        z-index: 0;
+      }
 
-        .highlight {
-            background-color: #edd9b5;
-            padding: 2px 4px;
-            border-radius: 3px;
-        }
+      .wrap {
+        position: relative;
+        z-index: 1;
+        max-width: 1100px;
+        margin: 2.5rem auto;
+        padding: 0 1rem;
+      }
 
-        .event-section {
-            margin-top: 20px;
-            padding: 0.5rem 1rem;
-            border-radius: 15px;
-        }
+      /* === NAVBAR === */
+      .navbar-custom {
+        background-color: var(--violet) !important;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      }
+      .navbar-custom .nav-link, .navbar-custom .navbar-brand { color: #fff; }
+      .navbar-custom .nav-link:hover { color: #000; }
 
-        .event-title {
-            font-weight: bold;
-            font-size: 1.4rem;
-            color: #000;
-            margin: 2px 0;
-        }
+      /* === PAGE === */
+      .page-head {
+        text-align: center;
+        margin-bottom: 1.5rem;
+      }
+      .page-title {
+        font-weight: 800;
+        letter-spacing: -0.5px;
+        color: #2d2a55;
+      }
+      .small-meta {
+        color: #555;
+        font-size: 0.9rem;
+      }
 
-        img {
-            border-radius: 15px;
-            width: 30%;
-            height: auto;
-        }
+      /* === GRID ARTICLES === */
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.25rem;
+      }
+      @media (max-width: 900px) {
+        .grid { grid-template-columns: 1fr; }
+      }
 
-        p {
-            padding: 0.2rem 0;
-            margin-bottom: 0.5rem;
-        }
+      .card-article {
+        background: rgba(255,255,255,0.8);
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 8px 24px rgba(80,70,120,0.15);
+        backdrop-filter: blur(5px);
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.2s ease, box-shadow 0.3s ease;
+      }
+      .card-article:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 28px rgba(70,60,110,0.25);
+      }
+
+      .thumb {
+        width: 100%;
+        height: 210px;
+        background-size: cover;
+        background-position: center;
+      }
+
+      .card-body {
+        padding: 1rem 1.25rem;
+        flex: 1 1 auto;
+      }
+
+      .tag {
+        display: inline-block;
+        background: var(--highlight);
+        color: #000;
+        padding: 0.25rem 0.6rem;
+        border-radius: 999px;
+        font-weight: 700;
+        font-size: 0.8rem;
+      }
+
+      .title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-top: 0.5rem;
+      }
+
+      .excerpt {
+        margin-top: 0.6rem;
+        color: #444;
+        line-height: 1.5;
+      }
+
+      .read-more {
+        margin-top: 1rem;
+        display: inline-block;
+        background-color: var(--violet);
+        color: white;
+        padding: 0.4rem 0.8rem;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: background 0.2s;
+      }
+
+      .read-more:hover {
+        background-color: #7276b8;
+        color: #fff;
+      }
+
+      footer {
+        text-align: center;
+        margin: 2rem 0;
+        color: #555;
+        font-size: 0.9rem;
+      }
     </style>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   </head>
+
   <body>
+    <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-custom">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="https://s3-4441.nuage-peda.fr/Blog/">HOME</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    <a class="nav-link active" aria-current="page" href="https://s3-4441.nuage-peda.fr/Blog/article/">Articles</a>
-                    <a class="nav-link" href="">Commentaires</a>
-                    <a class="nav-link" href="">A propos</a>
-                </div>
-            </div>
+      <div class="container-fluid">
+        <a class="navbar-brand" href="https://s3-4441.nuage-peda.fr/Blog/">HOME</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-link active" aria-current="page" href="https://s3-4441.nuage-peda.fr/Blog/article/">Articles</a>
+            <a class="nav-link" href="../commentaires/">Commentaires</a>
+            <a class="nav-link" href="../apropos/">À propos</a>
+          </div>
         </div>
+      </div>
     </nav>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <!-- CONTENU -->
+    <main class="wrap">
+      <header class="page-head">
+        <h1 class="page-title">David — Dossier Tellement Vrai</h1>
+        <p class="small-meta">5 articles cultes, ton léger et images du web.</p>
+      </header>
+
+      <section class="grid">
+        <!-- Article 1 -->
+        <article class="card-article">
+          <div class="thumb" style="background-image: url('https://img.youtube.com/vi/hQLQI0MEjgU/maxresdefault.jpg');"></div>
+          <div class="card-body">
+            <span class="tag">Portrait</span>
+            <h2 class="title">David se trouve "trop beau" — portrait express</h2>
+            <p class="excerpt">« Trop beau, trop merveilleux » : David explique avec une conviction XXL pourquoi il est LE mec à remarquer. Entre self-love et show, il assume tout.</p>
+            <a class="read-more" href="https://www.tiktok.com/@frenchmovie1/video/7235700516557294874">Lire →</a>
+          </div>
+        </article>
+
+        <!-- Article 2 -->
+        <article class="card-article">
+          <div class="thumb" style="background-image: url('https://img.youtube.com/vi/6bYXYLGkitY/maxresdefault.jpg');"></div>
+          <div class="card-body">
+            <span class="tag">Moments cultes</span>
+            <h2 class="title">Top moments : les meilleures punchlines de David</h2>
+            <p class="excerpt">Compilation des répliques les plus marquantes — du « je suis David Rapon » à l’inévitable « trop merveilleux ». Tellement Vrai, tellement culte.</p>
+            <a class="read-more" href="https://www.tiktok.com/@reportage_et_enquetes_/video/7319139636725419296">Lire →</a>
+          </div>
+        </article>
+
+        <!-- Article 3 -->
+        <article class="card-article">
+          <div class="thumb" style="background-image: url('https://img.youtube.com/vi/18RWhV7clW8/maxresdefault.jpg');"></div>
+          <div class="card-body">
+            <span class="tag">Analyse</span>
+            <h2 class="title">Pourquoi David fascine ? Décryptage rapide</h2>
+            <p class="excerpt">Confiance, mise en scène, besoin d’être vu — petit décryptage sociologique du phénomène « David » vu par la télé-réalité et l’ironie du net.</p>
+            <a class="read-more" href="https://www.youtube.com/watch?v=hQLQI0MEjgU">Lire →</a>
+          </div>
+        </article>
+
+        <!-- Article 4 -->
+        <article class="card-article">
+          <div class="thumb" style="background-image: url('https://img.youtube.com/vi/hQLQI0MEjgU/maxresdefault.jpg');"></div>
+          <div class="card-body">
+            <span class="tag">Tellement Vrai</span>
+            <h2 class="title">L’épisode culte : « Ma beauté est un handicap »</h2>
+            <p class="excerpt">Résumé court et sans pitié de l’épisode où David raconte sa vie : entre mauvaise foi assumée et moments sincères, c’est un cocktail unique.</p>
+            <a class="read-more" href="https://www.tiktok.com/@le18.36/video/7310888309440466209?lang=fr">Lire →</a>
+          </div>
+        </article>
+
+        <!-- Article 5 -->
+        <article class="card-article">
+          <div class="thumb" style="background-image: url('https://img.youtube.com/vi/6bYXYLGkitY/maxresdefault.jpg');"></div>
+          <div class="card-body">
+            <span class="tag">Web</span>
+            <h2 class="title">Les réactions du net : memes et parodies</h2>
+            <p class="excerpt">Quand Internet s’empare de la phrase « trop beau, trop merveilleux » : memes, TikToks et remix s’enchaînent. David est devenu une légende.</p>
+            <a class="read-more" href="#">Lire →</a>
+          </div>
+        </article>
+      </section>
+
+      <footer>
+        <p>© 2025 — Blog David — Images : miniatures publiques YouTube</p>
+      </footer>
+    </main>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
